@@ -5,12 +5,13 @@ class GildedRose(object):
     def __init__(self, items):
         self.items = items
 
-    def update_quality(self):
+    def update_items(self):
         for item in self.items:
             if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert":
                 if item.quality > 0:
                     if item.name != "Sulfuras, Hand of Ragnaros":
                         item.quality = item.quality - 1
+            # Hard to see to what this else refers
             else:
                 if item.quality < 50:
                     item.quality = item.quality + 1
