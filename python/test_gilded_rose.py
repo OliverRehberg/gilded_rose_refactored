@@ -11,6 +11,11 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose.update_items()
         self.assertEqual("foo", items[0].name)
 
+    def test_Sulfuras_constant_quality(self):
+        items = [Item("Sulfuras, Hand of Ragnaros", 0, 80)]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_items()
+        self.assertEqual(80, items[0].quality)
         
 if __name__ == '__main__':
     unittest.main()
