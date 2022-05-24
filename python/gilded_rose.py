@@ -21,30 +21,31 @@ class Item:
 
     def update_quality(self):
         if self.name != "Aged Brie" and self.name != "Backstage passes to a TAFKAL80ETC concert":
-            if self.quality > 0:
-                if self.name != "Sulfuras, Hand of Ragnaros":
-                    self.quality = self.quality - 1
+            self.decrease_quality_if_feasible()
         else:
-            self. increase_quality_if_feasible()
+            self.increase_quality_if_feasible()
             if self.name == "Backstage passes to a TAFKAL80ETC concert":
                 if self.sell_in < 11:
-                    self. increase_quality_if_feasible()
+                    self.increase_quality_if_feasible()
                 if self.sell_in < 6:
-                    self. increase_quality_if_feasible()
+                    self.increase_quality_if_feasible()
         if self.sell_in < 0:
             if self.name != "Aged Brie":
                 if self.name != "Backstage passes to a TAFKAL80ETC concert":
-                    if self.quality > 0:
-                        if self.name != "Sulfuras, Hand of Ragnaros":
-                            self.quality = self.quality - 1
+                    self.decrease_quality_if_feasible()
                 else:
                     self.quality = 0
             else:
-                self. increase_quality_if_feasible()
+                self.increase_quality_if_feasible()
 
     def increase_quality_if_feasible(self):
         if self.quality < 50:
             self.quality = self.quality + 1
+
+    def decrease_quality_if_feasible(self):
+        if self.quality > 0:
+            if self.name != "Sulfuras, Hand of Ragnaros":
+                    self.quality = self.quality - 1
 
     def update_sell_in(self):
         if self.name != "Sulfuras, Hand of Ragnaros":
