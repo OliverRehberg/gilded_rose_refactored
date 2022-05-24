@@ -29,7 +29,7 @@ class Item:
                     self.increase_quality_if_feasible()
                 if self.sell_in < 6:
                     self.increase_quality_if_feasible()
-        if self.sell_in < 0:
+        if self.sell_in == 0:
             if self.name != "Aged Brie":
                 if self.name != "Backstage passes to a TAFKAL80ETC concert":
                     self.decrease_quality_if_feasible()
