@@ -38,7 +38,7 @@ class Item:
                         if self.name != "Sulfuras, Hand of Ragnaros":
                             self.quality = self.quality - 1
                 else:
-                    self.quality = self.quality - self.quality
+                    self.quality = 0
             else:
                 self. increase_quality_if_feasible()
 
