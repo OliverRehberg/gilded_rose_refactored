@@ -16,10 +16,11 @@ class Item:
     EARLY_TICKET_QUALITY_INCREMENT_THRESHOLD = 11
     LATE_TICKET_QUAILTY_INCREMENT_THRESHOLD = 6
 
-    def __init__(self, name, sell_in, quality):
+    def __init__(self, name, sell_in, quality, conjured = False):
         self.name = name
         self.sell_in = sell_in
         self.quality = quality
+        self.conjured = conjured
 
     def __repr__(self):
         return "%s, %s, %s" % (self.name, self.sell_in, self.quality)
@@ -38,6 +39,9 @@ class Item:
 
     def set_sell_in(self, new_sell_in):
         self.sell_in = new_sell_in
+
+    def get_conjured(self):
+        return self.conjured
 
     def update_quality(self):
         if self.get_name() != "Aged Brie" and self.get_name() != "Backstage passes to a TAFKAL80ETC concert":
@@ -61,10 +65,17 @@ class Item:
     def increase_quality_if_feasible(self):
         if self.get_quality() < self.MAX_DEFAULT_QUALITY:
             self.set_quality(self.quality + 1)
+        if self.get_conjured():
+            if self.get_quality() < self.MAX_DEFAULT_QUALITY:
+                self.set_quality(self.quality + 1)
 
     def decrease_quality_if_feasible(self):
         if self.get_quality() > self.MIN_DEFAULT_QUALITY:
             if self.get_name() != "Sulfuras, Hand of Ragnaros":
+                self.set_quality(self.quality - 1)
+        if self.get_conjured():
+            if self.get_quality() > self.MIN_DEFAULT_QUALITY:
+                if self.get_name() != "Sulfuras, Hand of Ragnaros":
                     self.set_quality(self.quality - 1)
 
     def update_sell_in(self):
