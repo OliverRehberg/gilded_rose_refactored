@@ -11,6 +11,11 @@ class GildedRose(object):
             item.update_sell_in()
  
 class Item:
+    MAX_DEFAULT_QUALITY = 50
+    MIN_DEFAULT_QUALITY = 0
+    EARLY_TICKET_QUALITY_INCREMENT_THRESHOLD = 11
+    LATE_TICKET_QUAILTY_INCREMENT_THRESHOLD = 6
+
     def __init__(self, name, sell_in, quality):
         self.name = name
         self.sell_in = sell_in
@@ -40,9 +45,9 @@ class Item:
         else:
             self.increase_quality_if_feasible()
             if self.get_name() == "Backstage passes to a TAFKAL80ETC concert":
-                if self.get_sell_in() < 11:
+                if self.get_sell_in() < self.EARLY_TICKET_QUALITY_INCREMENT_THRESHOLD:
                     self.increase_quality_if_feasible()
-                if self.get_sell_in() < 6:
+                if self.get_sell_in() < self.LATE_TICKET_QUAILTY_INCREMENT_THRESHOLD:
                     self.increase_quality_if_feasible()
         if self.get_sell_in() == 0:
             if self.get_name() != "Aged Brie":
@@ -54,11 +59,11 @@ class Item:
                 self.increase_quality_if_feasible()
 
     def increase_quality_if_feasible(self):
-        if self.get_quality() < 50:
+        if self.get_quality() < self.MAX_DEFAULT_QUALITY:
             self.set_quality(self.quality + 1)
 
     def decrease_quality_if_feasible(self):
-        if self.get_quality() > 0:
+        if self.get_quality() > self.MIN_DEFAULT_QUALITY:
             if self.get_name() != "Sulfuras, Hand of Ragnaros":
                     self.set_quality(self.quality - 1)
 
