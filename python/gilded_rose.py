@@ -40,23 +40,35 @@ class Item:
         self.sell_in = new_sell_in
 
     def update_quality(self):
-        if self.get_name() != "Aged Brie" and self.get_name() != "Backstage passes to a TAFKAL80ETC concert":
+        if "Aged Brie" not in self.get_name() and "Backstage passes to a TAFKAL80ETC concert" not in self.get_name():
             self.decrease_quality_if_feasible()
+            if self.get_name().startswith("Conjured"):
+                self.decrease_quality_if_feasible()
         else:
             self.increase_quality_if_feasible()
-            if self.get_name() == "Backstage passes to a TAFKAL80ETC concert":
+            if self.get_name().startswith("Conjured"):
+                self.increase_quality_if_feasible()
+            if self.get_name().endswith("Backstage passes to a TAFKAL80ETC concert"):
                 if self.get_sell_in() < self.EARLY_TICKET_QUALITY_INCREMENT_THRESHOLD:
                     self.increase_quality_if_feasible()
+                    if self.get_name().startswith("Conjured"):
+                        self.increase_quality_if_feasible()
                 if self.get_sell_in() < self.LATE_TICKET_QUAILTY_INCREMENT_THRESHOLD:
                     self.increase_quality_if_feasible()
+                    if self.get_name().startswith("Conjured"):
+                        self.increase_quality_if_feasible()
         if self.get_sell_in() == 0:
-            if self.get_name() != "Aged Brie":
-                if self.get_name() != "Backstage passes to a TAFKAL80ETC concert":
+            if "Aged Brie" not in self.get_name():
+                if "Backstage passes to a TAFKAL80ETC concert" not in self.get_name():
                     self.decrease_quality_if_feasible()
+                    if self.get_name().startswith("Conjured"):
+                        self.decrease_quality_if_feasible()
                 else:
                     self.set_quality(0)
             else:
                 self.increase_quality_if_feasible()
+                if self.get_name().startswith("Conjured"):
+                    self.increase_quality_if_feasible()
 
     def increase_quality_if_feasible(self):
         if self.get_quality() < self.MAX_DEFAULT_QUALITY:
@@ -64,9 +76,9 @@ class Item:
 
     def decrease_quality_if_feasible(self):
         if self.get_quality() > self.MIN_DEFAULT_QUALITY:
-            if self.get_name() != "Sulfuras, Hand of Ragnaros":
+            if "Sulfuras, Hand of Ragnaros" not in self.get_name():
                     self.set_quality(self.quality - 1)
 
     def update_sell_in(self):
-        if self.get_name() != "Sulfuras, Hand of Ragnaros":
+        if "Sulfuras, Hand of Ragnaros" not in self.get_name():
             self.set_sell_in(self.sell_in - 1)
