@@ -29,5 +29,11 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose.update_items()
         self.assertEqual(21, items[0].quality)
 
+    def test_aged_brie_max_quality_threshold(self):
+        items = [Item("Aged Brie", 5, 50)]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_items()
+        self.assertEqual(50, items[0].quality)
+
 if __name__ == '__main__':
     unittest.main()
